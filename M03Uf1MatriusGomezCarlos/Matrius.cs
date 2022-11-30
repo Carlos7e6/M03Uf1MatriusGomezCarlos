@@ -1,18 +1,13 @@
 ﻿//AUTHOR: CARLOS GOMEZ
-//DATE: 23/11/2000
-//DESCRIPTION: Exercicis vectors Uf1
-
-
-using System.Numerics;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
+//DATE: 30/11/2000
+//DESCRIPTION: Exercicis MATRIUS UF1
 
 public class Vectors
 {
     public static void Main()
     {
         var menu = new Vectors();
-        menu.MultiMatriu();
+        menu.Menu();
     }
 
     /*DESCRIPTION: Aquest es el menu que utilitzarem per navegar*/
@@ -36,6 +31,7 @@ public class Vectors
             Console.WriteLine("7 - MatrixSum");
             Console.WriteLine("8 - RookMoves");
             Console.WriteLine("9 - MatrixSimetric");
+            Console.WriteLine("a - MultiMatriu");
 
 
             Console.WriteLine();
@@ -74,6 +70,9 @@ public class Vectors
                 case '9':
                     MatrixSimetric();
                     break;
+                case 'a':
+                     MultiMatriu();
+                    break;
                 default:
                     Console.WriteLine("Prem un valor valid");
                     break;
@@ -82,7 +81,7 @@ public class Vectors
         } while (x != '0');
     }
 
-    /*Donada la següent configuració del joc Enfonsar la flota, indica si a la posició (x, y) hi ha aigua o un vaixell (tocat)*/
+    /*DESCRIPTION:Donada la següent configuració del joc Enfonsar la flota, indica si a la posició (x, y) hi ha aigua o un vaixell (tocat)*/
     public void SimpleBattleshipResult()
     {
 
@@ -99,11 +98,8 @@ public class Vectors
 
         for(int i=0; i < mar.Length/mx ; i++)
         {
-            for(int j =0; j < mar.Length/my; j++) //aqui basicament el que faig es omplir la array de 0, seria com l'aigua
-            {
-                mar[i,j]= '0'; 
+            for(int j =0; j < mar.Length/my; j++) mar[i, j] = '0'; //aqui basicament el que faig es omplir la array de 0, seria com l'aigua
 
-            }
         }
 
         mar[0,0] = 'x';
@@ -120,8 +116,8 @@ public class Vectors
         mar[6,2] = 'x';
         mar[6,3] = 'x';
 
-        int x = -1;
-        int y = -1;
+        int x;
+        int y;
 
         do
         {
@@ -143,21 +139,19 @@ public class Vectors
         if (mar[x, y] == 0) Console.WriteLine("aigua");// comprovo si el que m'han donat es aigua o no
         else Console.WriteLine("tocat");
 
-        for (int i = 0; i < mar.Length / mx; i++)//printo la taula
+        for (int i = 0; i < mar.GetLength(0); i++)//printo la taula
         {
             Console.WriteLine();
             Console.Write((i + 1) + " ");
-            for (int j = 0; j < mar.Length / my; j++)
-            {
-                Console.Write(mar[j, i] + "\t");//s'ha de printar amb y al lloc de x i a l'inreves perque la array i el writeline funcionen de diferent manera
-            }
+            for (int j = 0; j < mar.GetLength(1); j++) Console.Write(mar[j, i] + "\t");//s'ha de printar amb y al lloc de x i a l'inreves perque la array i el writeline funcionen de diferent manera
+
         }
         Console.WriteLine() ;
         Console.WriteLine("Prem enter per tornar al menu");
         Console.ReadLine();
 
     }
-    /*Donada la següent matriu
+    /*DESCRIPTION:Donada la següent matriu
     matrix = {{2,5,1,6},{23,52,14,36},{23,75,81,64}}
 
     Imprimeix la suma de tots els seus valors.
@@ -185,7 +179,7 @@ public class Vectors
         Console.ReadLine();
     }
 
-    /*Un banc té tot de caixes de seguretat en una graella, numerades per fila i columna del 0 al 3.
+    /*DESCRIPTION: Un banc té tot de caixes de seguretat en una graella, numerades per fila i columna del 0 al 3.
     Volem registrar quan els usuaris obren una caixa de seguretat, i al final del dia, fer-ne un recompte.
     L'usuari introduirà parells d'enters del 0 al 3 quan s'obri la caixa indicada.
     Quan introdueixi l'enter -1, és que s'ha acabat el dia. Printa per pantalla el nombre de cops que s'ha obert.
@@ -199,16 +193,16 @@ public class Vectors
 
         int bx;
         int by;
-        bx = by = 4;
+        bx = by = 4;//caixes del 0 a l3
 
         int openBX =0;
-        int openBY =0;
+        int openBY =0;//els contadors
 
-        int[,] boxes = new int [bx,by];
+        int[,] boxes = new int [bx,by];//l'array
 
-        for (int i = 0; i < boxes.Length / bx; i++)
+        for (int i = 0; i < boxes.GetLength(0); i++)
         {
-            for (int j = 0; j < boxes.Length/by; j++) boxes[i, j] = 0;//dic que totes les boxes s'han obert 0 vegades
+            for (int j = 0; j < boxes.GetLength(1); j++) boxes[i, j] = 0;//dic que totes les boxes s'han obert 0 vegades
         }
 
         while (openBX != -1 && openBY != -1)
@@ -236,14 +230,13 @@ public class Vectors
 
         }
 
-        for (int i = 0; i < boxes.Length / bx; i++)//printo la taula
+        for (int i = 0; i < boxes.GetLength(0); i++)//printo la taula
         {
             Console.WriteLine();
             Console.Write((i) + " ");
-            for (int j = 0; j < boxes.Length / by; j++)
-            {
-                Console.Write(boxes[j, i] + "\t");//s'ha de printar amb y al lloc de x i a l'inreves perque la array i el writeline funcionen de diferent manera
-            }
+
+            for (int j = 0; j < boxes.GetLength(1); j++) Console.Write(boxes[j, i] + "\t");//s'ha de printar amb y al lloc de x i a l'inreves perque la array i el writeline funcionen de diferent manera
+
         }
 
         Console.WriteLine();
@@ -278,7 +271,7 @@ public class Vectors
         Console.ReadLine();
     }
 
-    /*Usant les imatges d'un satel·lit hem pogut fer raster o (mapa de bits)[https://ca.wikipedia.org/wiki/Mapa_de_bits] que ens indica l'alçada d'un punt concret d'un mapa. Hem obtingut la següent informació:
+    /*DESCRIPTION: Usant les imatges d'un satel·lit hem pogut fer raster o (mapa de bits)[https://ca.wikipedia.org/wiki/Mapa_de_bits] que ens indica l'alçada d'un punt concret d'un mapa. Hem obtingut la següent informació:
     map ={{1.5,1.6,1.8,1.7,1.6},{1.5,2.6,2.8,2.7,1.6},{1.5,4.6,4.4,4.9,1.6},{2.5,1.6,3.8,7.7,3.6},{1.5,2.6,3.8,2.7,1.6}}
 
     Digues en quin punt(x,y) es troba el cim més alt i la seva alçada
@@ -292,21 +285,21 @@ public class Vectors
         Console.WriteLine();
 
 
-        double altMax = 0;
+        double altMax = 0; //la altura maxima
         int x = 0; ;
         int y = 0; ;
 
-        double[,] map = { { 1.5, 1.6, 1.8, 1.7, 1.6 }, { 1.5, 2.6, 2.8, 2.7, 1.6 }, { 1.5, 4.6, 4.4, 4.9, 1.6 }, { 2.5, 1.6, 3.8, 7.7, 3.6 }, { 1.5, 2.6, 3.8, 2.7, 1.6 } };
+        double[,] map = { { 1.5, 1.6, 1.8, 1.7, 1.6 }, { 1.5, 2.6, 2.8, 2.7, 1.6 }, { 1.5, 4.6, 4.4, 4.9, 1.6 }, { 2.5, 1.6, 3.8, 7.7, 3.6 }, { 1.5, 2.6, 3.8, 2.7, 1.6 } };//els nombres
 
-        for(int i =0; i <map.Length/5; i++)
+        for(int i =0; i <map.GetLength(0); i++)
         {
-            for(int j=0; j<map.Length/5; j++)
+            for(int j=0; j<map.GetLength(1); j++)
             {
-                if (map[i,j] > altMax)
+                if (map[i,j] > altMax)//comparo el valor amb l'enregistrat ( si es mes gran el nou)
                 {
-                    altMax = map[i,j];
+                    altMax = map[i,j];//em quedo amb el valors mes alt
                     x = i;
-                    y=j;
+                    y=j;//em guardo les poscions de l'array
                 }
             }
         }
@@ -318,7 +311,7 @@ public class Vectors
         Console.ReadLine();
     }
 
-    /*El govern britànic ens ha demanat que també vol accedir a les dades de l'exercici anterior i que les necessitaria en peus i no metres.
+    /*DESCRIPTION: El govern britànic ens ha demanat que també vol accedir a les dades de l'exercici anterior i que les necessitaria en peus i no metres.
 Per convertir un metre a peus has de multiplicar els metres per 3.2808.
 Fes la conversió i imprimeix la matriu per pantalla.
 */
@@ -332,28 +325,24 @@ Fes la conversió i imprimeix la matriu per pantalla.
 
         double[,] map = { { 1.5, 1.6, 1.8, 1.7, 1.6 }, { 1.5, 2.6, 2.8, 2.7, 1.6 }, { 1.5, 4.6, 4.4, 4.9, 1.6 }, { 2.5, 1.6, 3.8, 7.7, 3.6 }, { 1.5, 2.6, 3.8, 2.7, 1.6 } };
 
-        for (int i = 0; i < map.Length / 5; i++)
+        for (int i = 0; i < map.GetLength(0); i++)
         {
-            for (int j = 0; j < map.Length / 5; j++)
-            {
-                map[i,j]*= 3.2808;
-            }
+            for (int j = 0; j < map.GetLength(1); j++) map[i, j] *= 3.2808;//ho multiplico en peus
+
         }
 
-        foreach (var item in map)
+        for (int i = 0; i < map.GetLength(0); i++)
         {
+            for (int j = 0; j < map.GetLength(1); j++) Console.Write("[" + i + "," + j + "]: " + map[i, j] + "peus");
 
-            Console.WriteLine(item + " peus");
         }
-
-
 
         Console.WriteLine();
         Console.WriteLine("Prem enter per tornar al menu");
         Console.ReadLine();
     }
 
-    /*Implementa un programa que demani dos matrius a l'usuari i imprimeixi la suma de les dues matrius.*/
+    /*DESCRIPTION: Implementa un programa que demani dos matrius a l'usuari i imprimeixi la suma de les dues matrius.*/
 
 
     public void MatrixSum() 
@@ -370,9 +359,9 @@ Fes la conversió i imprimeix la matriu per pantalla.
 
         int[,] matriu1 = new int[matriuX1,matriuY1];
         int[,] matriu2 = new int[matriuX2, matriuY2];
-        int[,] final = new int[matriuX1, matriuY1];
+        int[,] final;
 
-        while ( matriuX1 != matriuX2 || matriuY1 != matriuY2)
+        while ( matriuX1 != matriuX2 || matriuY1 != matriuY2) //si les matrius no son iguals es forma el bucle
         {
             Console.Clear();
             Console.WriteLine("Porfavor introduce matrices que sean compatibles");
@@ -380,20 +369,20 @@ Fes la conversió i imprimeix la matriu per pantalla.
             Console.WriteLine("Primera matriu");
             Console.WriteLine("Escriu X de la primera matriu");
 
-            matriuX1 = Convert.ToInt32(Console.ReadLine());
+            matriuX1 = Convert.ToInt32(Console.ReadLine());//demano x de la primera matriu
 
             Console.WriteLine("Escriu Y de la primera matriu");
 
-            matriuY1 = Convert.ToInt32(Console.ReadLine());
+            matriuY1 = Convert.ToInt32(Console.ReadLine());//demano y de la primera matriu
 
-            matriu1 = new int[matriuX1, matriuY1];
+            matriu1 = new int[matriuX1, matriuY1];//inicialitzo la matriu novament
 
             for (int i = 0; i < matriu1.GetLength(0); i++)
             {
                 for (int j = 0; j < matriu1.GetLength(1); j++)
                 {
                     Console.WriteLine("Escriu el valor del camp de la primera matriu de: [" + i + "," + j + "]");
-                    matriu1[i, j] = Convert.ToInt32(Console.ReadLine());
+                    matriu1[i, j] = Convert.ToInt32(Console.ReadLine());//assigno un valor a cada posicio de la primera matriu
                 }
             }
 
@@ -401,52 +390,47 @@ Fes la conversió i imprimeix la matriu per pantalla.
             Console.WriteLine("Segona matriu");
             Console.WriteLine("Escriu X de la segona matriu");
 
-            matriuX2 = Convert.ToInt32(Console.ReadLine());
+            matriuX2 = Convert.ToInt32(Console.ReadLine());//demano la x de la segona matriu
 
             Console.WriteLine("Escriu Y de la segona matriu");
 
-            matriuY2 = Convert.ToInt32(Console.ReadLine());
+            matriuY2 = Convert.ToInt32(Console.ReadLine());//demano la y de la segona matriu
 
-            matriu2 = new int[matriuX2, matriuY2];
+            matriu2 = new int[matriuX2, matriuY2];//inicialitzo la matriu novament
 
             for (int i = 0; i < matriu1.GetLength(0); i++)
             {
                 for (int j = 0; j < matriu1.GetLength(1); j++)
                 {
                     Console.WriteLine("Escriu el valor del camp de la segona matriu de: [" + i + "," + j + "]");
-                    matriu2[i, j] = Convert.ToInt32(Console.ReadLine());
+                    matriu2[i, j] = Convert.ToInt32(Console.ReadLine());//assigno els valors a les posicions corresponent
                 }
             }
 
         }
 
-        final = new int[matriuX1, matriuY1];
+        final = new int[matriuX1, matriuY1];//incialitzo final amb els valors de les matrius iguals
 
         for (int i = 0; i < matriu1.GetLength(0); i++)
         {
-            for (int j = 0; j < matriu1.GetLength(1); j++)
-            {
-                final[i,j]= matriu1[i,j] + matriu2[i,j];
-            }
+            for (int j = 0; j < matriu1.GetLength(1); j++) final[i, j] = matriu1[i, j] + matriu2[i, j];//sumo les matrius i les igualo a finl
+
         }
 
         for (int i = 0; i <matriu1.GetLength(0); i++)
         {
             Console.WriteLine();
 
-            for (int j = 0; j < matriu1.GetLength(1); j++)
-            {
-                Console.Write(final[i,j] + "\t");
-            }
-        }
+            for (int j = 0; j < matriu1.GetLength(1); j++) Console.Write(final[i, j] + "\t");//printo la matriu ordenadament
 
+        }
 
         Console.WriteLine();
         Console.WriteLine("Prem enter per tornar al menu");
         Console.ReadLine();
     }
 
-    /*Programa una funció que donat un tauler d'escacs, i una posició, ens mostri per pantalla quines són les possibles posicions a les que es pot moure una torre.
+    /*DESCRIPTION: Programa una funció que donat un tauler d'escacs, i una posició, ens mostri per pantalla quines són les possibles posicions a les que es pot moure una torre.
 Primer caldrà llegir la posició de la torre, que simbolitzarem en el tauler amb el valor ♜ (fes copy & paste del símbol, és un string ja que ocupa dos chars), les posicions on aquesta es pugui moure les simbolitzarem amb el valor ♖ i la resta de posicions amb el valor x.
 El moviment de la torre és el següent: Es pot moure al llarg d'una fila o d'una columna (però no successivament en una mateixa jugada); se la pot fer avançar tantes caselles com es vulgui.
 */
@@ -457,9 +441,9 @@ El moviment de la torre és el següent: Es pot moure al llarg d'una fila o d'un
         Console.WriteLine("RookMoves");
         Console.WriteLine();
 
-        char[,] tablero = new char[8, 8];
+        char[,] tablero = new char[8, 8];//especifico l'array amb el tamany de un taulell d'escacs
         int alt=0;
-        int anchura = 0;
+        int anchura;
         char lletra;
 
         Console.WriteLine("Dame la altura de la torre");
@@ -488,7 +472,7 @@ El moviment de la torre és el següent: Es pot moure al llarg d'una fila o d'un
                     alt = 7; break;
                 default: Console.WriteLine("Dame un valor valido"); break;
             }
-        } while (lletra !='a' && lletra !='b' && lletra !='c' && lletra != 'd' && lletra !='e' && lletra !='f' && lletra !='g' && lletra !='h');
+        } while (lletra !='a' && lletra !='b' && lletra !='c' && lletra != 'd' && lletra !='e' && lletra !='f' && lletra !='g' && lletra !='h');//aqui basicament demano la primera lletra y la converteixo a un int per poder assignarli a una array
 
         Console.WriteLine("Dame la anchura de la torre");
         do
@@ -496,32 +480,28 @@ El moviment de la torre és el següent: Es pot moure al llarg d'una fila o d'un
             Console.WriteLine("Tiene que estar entre la anchura de la torre -- (1-8)");
             anchura = Convert.ToInt32(Console.ReadLine());
 
-        } while (anchura <= 0 || anchura >= 9);
+        } while (anchura <= 0 || anchura >= 9);//demano un int que seria la y que ha de ser mes gran que 0 i mes petit que 9
 
         for(int i = 0; i < tablero.GetLength(0); i++)
         {
-            for (int j = 0; j < tablero.GetLength(1); j++)
-            {
-                tablero[i, j] = '.';
-            }
+            for (int j = 0; j < tablero.GetLength(1); j++) tablero[i, j] = '.';//asigno a tot el taulel un punt
+
         }
         for(int i=0; i < tablero.GetLength(0); i++)
         {
-            tablero[alt, i] = '#';
-            tablero[i, anchura -1] = '#';
+            tablero[alt, i] = '#';//asigno la altura del taulel y printo tots els valors de y(i) amb un #
+            tablero[i, anchura -1] = '#';//asigno el valor de anchura -1 perque començem a contar desde 0 i printo tots els valors de x(i) amb un #
         }
 
-        tablero[alt, anchura - 1] = '@';
+        tablero[alt, anchura - 1] = '@';//la posicio inicial de la torre es un @
 
         for (int i = 0; i < tablero.GetLength(0); i++)
         {
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
-            for (int j = 0; j < tablero.GetLength(1); j++)
-            {
-                Console.Write(tablero[i, j]+"\t");
-            }
+            for (int j = 0; j < tablero.GetLength(1); j++) Console.Write(tablero[i, j] + "\t");//printo per consola el taulell
+
         }
 
         Console.WriteLine();
@@ -530,7 +510,7 @@ El moviment de la torre és el següent: Es pot moure al llarg d'una fila o d'un
         Console.ReadLine();
     }
 
-    /*Donada una matriu quadrada, el programa imprimeix true si la matriu és simètrica, false en cas contrari.*/
+    /*DESCRIPTION: Donada una matriu quadrada, el programa imprimeix true si la matriu és simètrica, false en cas contrari.*/
 
     public void MatrixSimetric()
     {
@@ -540,28 +520,23 @@ El moviment de la torre és el següent: Es pot moure al llarg d'una fila o d'un
         Console.WriteLine();
 
         int alt = Convert.ToInt32(Console.ReadLine());
-        int amp = alt;
+        int amp = alt; //la altura y la amplada son iguals perque es cuadrada
         int[,] Matrix = new int[alt,amp];
-        bool simetric = true;
+        bool simetric = true;//el bool inicialitzat a true molt important
 
         for (int i = 0; i < Matrix.GetLength(0); i++)
         {
-            for (int j = 0; j < Matrix.GetLength(j); j++)
-            {
-                Matrix[i, j] = Convert.ToInt32(Console.ReadLine());
-            }
+            for (int j = 0; j < Matrix.GetLength(j); j++) Matrix[i, j] = Convert.ToInt32(Console.ReadLine());//assigno un valor a cada posicio de l'array
+
         }
 
         for (int i = 0; i < Matrix.GetLength(0); i++)
         {
-            for(int j =0; j < Matrix.GetLength(1); j++)
-            {
-                if (Matrix[i, j] != Matrix[j, i]) simetric = false;
-                
-            }    
+            for(int j =0; j < Matrix.GetLength(1); j++) if (Matrix[i, j] != Matrix[j, i]) simetric = false;//comparto les inverses de les matrius si no son iguals ; igualo simetric a false
+   
         }
 
-        Console.WriteLine(simetric);
+        Console.WriteLine(simetric);//printo
 
         Console.WriteLine();
         Console.WriteLine("Prem enter per tornar al menu");
@@ -569,13 +544,11 @@ El moviment de la torre és el següent: Es pot moure al llarg d'una fila o d'un
     }
 
 
-
-
-    public void MatrixSimetricErroni()
+    public void MatrixSimetricVersionCarlos() //aquesta no la comento perque es meva jeje
     {
         Console.Clear();
         Console.WriteLine();
-        Console.WriteLine("HighestMountainOnMap");
+        Console.WriteLine("MatrixSimetricErroni");
         Console.WriteLine();
 
         int[,] Matrix= new int[3, 3] { { 1, 2, 3 }, { 2, 1, 2 }, { 3,2,1} };
@@ -609,22 +582,24 @@ El moviment de la torre és el següent: Es pot moure al llarg d'una fila o d'un
 
         Console.WriteLine(simetric);
 
-
         Console.WriteLine();
         Console.WriteLine("Prem enter per tornar al menu");
         Console.ReadLine();
     }
 
-    /*Multiplicació de matrius
-
-Les matrius es poden multiplicar entre elles mentre siguin de quadrades de igual dimensió o interc
-*/
+    /*DESCRIPTION:  Multiplicació de matrius
+    Les matrius es poden multiplicar entre elles mentre siguin de quadrades de igual dimensió o interc
+    */
 
     public void MultiMatriu()
     {
+        Console.Clear();
+        Console.WriteLine();
+        Console.WriteLine("MultiMatriu");
+        Console.WriteLine();
 
         Console.WriteLine("Donam el valor x de la matriu 1");
-        int Matriu1X = Convert.ToInt32(Console.ReadLine());
+        int Matriu1X = Convert.ToInt32(Console.ReadLine());//aqui demano els valors de les matrius
         Console.WriteLine("Donam el valor y de la matriu 1");
         int Matriu1Y = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine("Donam el valor x de la matriu 2");
@@ -632,26 +607,31 @@ Les matrius es poden multiplicar entre elles mentre siguin de quadrades de igual
         Console.WriteLine("Donam el valor y de la matriu 1");
         int Matriu2Y = Convert.ToInt32(Console.ReadLine());
 
-         int[,] Matriu1 = new int[Matriu1X, Matriu1Y];
-         int[,] Matriu2 = new int[Matriu2X, Matriu2Y];
+        int[,] Matriu1 = new int[Matriu1X, Matriu1Y];
+        int[,] Matriu2 = new int[Matriu2X, Matriu2Y];//assigno els valors a les matrius que he demanat anteriorment
 
-         int[,] resultat = new int[Matriu1X,Matriu1Y];
+        int[,] resultat = new int[Matriu1X,Matriu1Y];
 
-          while(Matriu1Y != Matriu2X)
-          {
-              Console.WriteLine("Les matrius han de ser iguals o interc");
-              Matriu1X = Convert.ToInt32(Console.ReadLine());
-              Matriu1Y = Convert.ToInt32(Console.ReadLine());
-              Matriu2X = Convert.ToInt32(Console.ReadLine());
-              Matriu2Y = Convert.ToInt32(Console.ReadLine());
+        while(Matriu1Y != Matriu2X)//comprobo si son compatibles o no per fer la multiplicació, si es que no torno a demanar els valors
+        {
+            Console.WriteLine("Les matrius han de ser iguals o interc");
+            Console.WriteLine("Donam el valor x de la matriu 1");
+            Matriu1X = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Donam el valor y de la matriu 1");
+            Matriu1Y = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Donam el valor x de la matriu 2");
+            Matriu2X = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Donam el valor y de la matriu 2");
+            Matriu2Y = Convert.ToInt32(Console.ReadLine());
 
-          }  
+        }  
          
         for(int i=0; i < Matriu1.GetLength(0); i++)
         {
             for(int j =0; j < Matriu1.GetLength(1); j++)
             {
-                Matriu1[i, j] = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Escriume el valor de [" + i + "," + j + "] de la Matriu 1: ");
+                Matriu1[i, j] = Convert.ToInt32(Console.ReadLine());//demano els valors que conte la primera matriu
             }
         }
 
@@ -659,19 +639,22 @@ Les matrius es poden multiplicar entre elles mentre siguin de quadrades de igual
         {
             for (int j = 0; j < Matriu2.GetLength(1); j++)
             {
-                Matriu2[i, j] = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Escriume el valor de [" + i + "," + j + "] de la Matriu 2: ");
+                Matriu2[i, j] = Convert.ToInt32(Console.ReadLine());//demano els valors que conte la segona matriu
             }
         }
 
-
+        /*Aquesta part m'agrada comentarla pas per pas*/
+        /*M'he plantejat aquest for pensant en quan s'actualitzen els valors*/
         for (int i =0; i < resultat.GetLength(0); i++)
         {
+            /*la i actualitza la fila de resultat y tambe la fila de la matriu1*/
             for(int j = 0; j < Matriu2.GetLength(1); j++)
             {
-                for (int z=0; z < Matriu1.GetLength(0); z++)
-                {
-                    resultat[i, j] += Matriu1[i, z] * Matriu2[z, j];
-                }
+                /*j correspon a les columnes de la fila que s'ha d'omplir de resultat i tambe l'actualitzacio de les columnes de la matriu 2*/
+                for (int z=0; z < Matriu1.GetLength(0); z++) resultat[i, j] += Matriu1[i, z] * Matriu2[z, j];
+                    /*Z es el valor que mes s'actualitza perque es el fa pasar la matriu1 pels valors de la  fila correponent i els valors de la columna correponent de la matriu2*/
+               
             }
         }
 
@@ -679,12 +662,14 @@ Les matrius es poden multiplicar entre elles mentre siguin de quadrades de igual
         {
             Console.WriteLine();
 
-            for(int j =0; j < resultat.GetLength(1); j++)
-            {
-                Console.Write(resultat[i, j] +"\t");
-            }
+            for(int j =0; j < resultat.GetLength(1); j++) Console.Write(resultat[i, j] + "\t");//printo el resultat
         }
-        
 
+        /*ESPERO QUE M'HAGUIS ENTÉS MONTSE, ES UNA MICA EXTRANY D'EXPLICAR E INCLÚS D'ENTEDRE PER MI PERO AQUÍ ESTÀ EL RESULTAT!*/
+
+        Console.WriteLine();
+        Console.WriteLine();
+        Console.WriteLine("Prem enter per tornar al menu");
+        Console.ReadLine();
     }
 }
